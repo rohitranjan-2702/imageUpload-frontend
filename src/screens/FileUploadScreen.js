@@ -1,42 +1,42 @@
 import React, {useState, useEffect} from 'react';
 import {singleFileUpload, multipleFilesUpload} from '../data/api';
-import {CircularProgressbar, buildStyles} from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+// import {CircularProgressbar, buildStyles} from 'react-circular-progressbar';
+// import 'react-circular-progressbar/dist/styles.css';
 
 
 const FileUploadScreen = (props) => {
     const [singleFile, setSingleFile] = useState('');
     const [multipleFiles, setMultipleFiles] = useState('');
     const [title, setTitle] =  useState('');
-    const [singleProgress, setSingleProgress] = useState(0);
-    const [multipleProgress, setMultipleProgress] = useState(0);
+    // const [singleProgress, setSingleProgress] = useState(0);
+    // const [multipleProgress, setMultipleProgress] = useState(0);
 
     const SingleFileChange = (e) => {
         setSingleFile(e.target.files[0]);
-        setSingleProgress(0);
+        // setSingleProgress(0);
     }
     const MultipleFileChange = (e) => {
         setMultipleFiles(e.target.files);
-        setMultipleProgress(0);
+        // setMultipleProgress(0);
     }
-    const singleFileOptions = {
-        onUploadProgress: (progressEvent) => {
-            const {loaded, total} = progressEvent;
-            const percentage = Math.floor(((loaded / 1000) * 100) / (total / 1000));
-            setSingleProgress(percentage);
-        }
-    }
-    const mulitpleFileOptions = {
-        onUploadProgress: (progressEvent) => {
-            const {loaded, total} = progressEvent;
-            const percentage = Math.floor(((loaded / 1000) * 100) / (total / 1000));
-            setMultipleProgress(percentage);
-        }
-    }
+    // const singleFileOptions = {
+    //     onUploadProgress: (progressEvent) => {
+    //         const {loaded, total} = progressEvent;
+    //         const percentage = Math.floor(((loaded / 1000) * 100) / (total / 1000));
+    //         setSingleProgress(percentage);
+    //     }
+    // }
+    // const mulitpleFileOptions = {
+    //     onUploadProgress: (progressEvent) => {
+    //         const {loaded, total} = progressEvent;
+    //         const percentage = Math.floor(((loaded / 1000) * 100) / (total / 1000));
+    //         setMultipleProgress(percentage);
+    //     }
+    // }
     const uploadSingleFile = async () => {
         const formData = new FormData();
         formData.append('file', singleFile);
-        await singleFileUpload(formData, singleFileOptions);
+        await singleFileUpload(formData);
         props.getsingle();
     }
     const UploadMultipleFiles = async () => {
@@ -45,7 +45,7 @@ const FileUploadScreen = (props) => {
         for (let i = 0; i < multipleFiles.length; i++) {
             formData.append('files', multipleFiles[i]);                      
         }
-        await multipleFilesUpload(formData, mulitpleFileOptions);
+        await multipleFilesUpload(formData);
         props.getMultiple();
     }
     return (
@@ -60,7 +60,7 @@ const FileUploadScreen = (props) => {
                         <button type="button" className="btn btn-danger" onClick={() => uploadSingleFile()} >Upload</button>
                     </div>
                     <div className="col-2">
-                        <CircularProgressbar
+                        {/* <CircularProgressbar
                             value={singleProgress}
                             text={`${singleProgress}%`}
                             styles={buildStyles({
@@ -73,7 +73,7 @@ const FileUploadScreen = (props) => {
                                 trailColor: '#d6d6d6',
                                 backgroundColor: '#3e98c7',
                             })}
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@ const FileUploadScreen = (props) => {
                             <button type="button" onClick={() => UploadMultipleFiles()}  className="btn btn-danger">Upload</button>
                         </div>
                         <div className="col-2">
-                        <CircularProgressbar
+                        {/* <CircularProgressbar
                             value={multipleProgress}
                             text={`${multipleProgress}%`}
                             styles={buildStyles({
@@ -108,7 +108,7 @@ const FileUploadScreen = (props) => {
                                 trailColor: '#d6d6d6',
                                 backgroundColor: '#3e98c7',
                             })}
-                        />
+                        /> */}
                     </div>
                     </div>
                 </div>
